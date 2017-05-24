@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:p="http://www.springframework.org/schema/p"
+xmlns:context="http://www.springframework.org/schema/context"
+xmlns:util="http://www.springframework.org/schema/util"
+xmlns:mvc="http://www.springframework.org/schema/mvc"
+
+xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/mvc
+ http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+ http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd">
+
+
+
+
+
+	<context:annotation-config />
+	
+	<mvc:annotation-driven/>
+	
+    <mvc:default-servlet-handler/>
+    
+	<context:component-scan base-package="edu.sms.server,edu.sms.sample ,edu.sms.sample.service" />
+
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+
+	<bean id="messageAdapter"
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<list>
+				<!-- Message converters -->
+				<bean class="org.springframework.http.converter.StringHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.FormHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.xml.SourceHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter" />
+				<bean class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	
+	
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+		<property name="securityManager" ref="securityManager" />
+		<property name="filters">
+            <util:map>
+                <entry key="myAuthcBasic">
+                    <bean class="org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter"/>
+                </entry>
+            </util:map>
+        </property>
+		 <property name="filterChainDefinitions">
+            <value> 
+                 /admin/** = myAuthcBasic  
+            </value>
+        </property>
+	</bean>
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+		<!-- Single realm app. If you have multiple realms, use the 'realms' property 
+			instead. -->
+		<property name="realm" ref="sampleRealm" />
+		<!-- By default the servlet container sessions will be used. Uncomment 
+			this line to use shiro's native sessions (see the JavaDoc for more): -->
+		<!--<property name="sessionMode" value="native"/>-->
+	</bean>
+	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+
+	<bean id="sha512Matcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+		<!-- Modifying any piece of the matcher will likely invalidate the ability to match any passphrases in the DB -->
+		<property name="hashAlgorithmName" value="SHA-512" />
+		<property name="storedCredentialsHexEncoded" value="false" />
+		<property name="hashIterations" value="1024" />
+	</bean>
+	
+	<!-- Define the Shiro Realm implementation you want to use to connect to 
+		your back-end -->
+	<!-- security datasource: -->  
+	<bean id="sampleRealm" class="org.apache.shiro.realm.jdbc.JdbcRealm">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="authenticationQuery" value="select passphrase, CONCAT('some salty value for this application', ':', salt) as salt from shiro_user where userid = ?"/>
+		<property name="userRolesQuery" value="SELECT name FROM shiro_role LEFT JOIN shiro_user_role ON shiro_role.roleId = shiro_user_role.role_id LEFT JOIN shiro_user ON shiro_user_role.user_id = shiro_user.id WHERE userid = ?"/>
+		<property name="permissionsQuery" value="SELECT permission FROM shiro_role_permission LEFT JOIN shiro_role ON shiro_role_permission.role_id = shiro_role.id WHERE shiro_role.name = ?"/>
+		<property name="permissionsLookupEnabled" value="true"/>
+		<property name="saltStyle" value="COLUMN"/>
+		<property name="credentialsMatcher" ref="sha512Matcher"/>
+	</bean>
+	
+	
+	<!-- Sample Beans -->
+
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="edu.sms.sample.persistence" />
+	</bean>
+
+	<!-- Database Configuration / MyBatis -->
+	<!-- define the SqlSessionFactory -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="typeAliasesPackage" value="edu.sms.sample.domain" />
+		<property name="configLocation" value="classpath:edu/sms/sample/persistence/mybatis-config.xml" />
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	<bean id="adminController" class="edu.sms.server.AdminController">
+		<property name="orgService" ref="orgService" />
+		<property name="schoolService" ref="schoolService" />
+		<property name="lookupService" ref="lookupService" />
+		<property name="classService" ref="classService" />
+		<property name="academicSessionService" ref="academicSessionService" />
+		<property name="schoolOrgService" ref="schoolOrgService" />
+		<property name="studentFeeCategoryService" ref="studentFeeCategoryService" />
+		<property name="sectionService" ref="sectionService"/>
+	</bean>
+	
+	<bean id="employeDtlController" class="edu.sms.server.EmployeDtlController">
+		<property name="orgService" ref="orgService"/>
+		<property name="empService" ref="empService"/>
+	</bean>
+	
+	<bean id="lookupController" class="edu.sms.server.LookupController">
+		<property name="lookupService" ref="lookupService" />
+		<property name="classService" ref="classService" />
+	</bean>
+	
+	<bean id="imageController" class="edu.sms.server.ImageController">
+		<property name="orgService" ref="orgService" />
+		<property name="schoolService" ref="schoolService" />
+	</bean>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Stundet Manager -->
+	
+	<bean id="studentCreateController" class="edu.sms.server.student.StudentCreateController">
+		<property name="lookupService" ref="lookupService" />
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="studentUpdateController" class="edu.sms.server.student.StudentUpdateController">
+		<property name="lookupService" ref="lookupService" />
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="studentListController" class="edu.sms.server.student.StudentListController">
+		<property name="lookupService" ref="lookupService" />
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="studentService" class="edu.sms.service.student.manage.impl.StudentServiceImpl">
+		<property name="studentDao"  ref="studentDao" />
+	</bean>
+	<bean id="studentDao" class="edu.sms.dao.student.manage.impl.StudentDaoImpl" />
+	<!-- Stundet Manager Ends-->
+	
+	
+	
+	
+	
+	
+	<bean id="orgService" class="edu.sms.organization.OrgServiceImpl">
+		<property name="organizationDAO"  ref="organizationDAO" />
+		<property name="moduleListDAO"    ref="moduleListDAO" />
+		<property name="modSubPerListDAO" ref="modSubPerListDAO" />
+		<property name="perRoleListDAO"   ref="perRoleListDAO" />
+		<property name="roleDAO"   ref="roleDAO" />
+	</bean>
+	<bean id="schoolService" class="edu.sms.service.SchoolServiceImpl">
+		<property name="schoolDAO"  ref="schoolDAO" />
+	</bean>
+	<bean id="sectionService" class="edu.sms.service.SectionServiceImpl">
+		<property name="sectionDAO"  ref="sectionDAO" />
+	</bean>
+    <bean id="empService" class="edu.sms.service.employee.EmpServiceImpl">
+		<property name="employedao"  ref="employedao" />
+	</bean>
+	<bean id="lookupService" class="edu.sms.service.LookupServiceImpl">
+		<property name="lookupDAO" ref="lookupDAO" />
+	</bean>
+	<bean id="classService" class="edu.sms.service.ClassServiceImpl">
+		<property name="classDAO" ref="classDAO" />
+	</bean>
+	<bean id="academicSessionService" class="edu.sms.service.AcademicSessionServiceImpl">
+		<property name="academicSessionDAO" ref="academicSessionDAO" />
+	</bean>
+	<bean id="schoolOrgService" class="edu.sms.service.SchoolOrgServiceImpl">
+		<property name="schoolOrgDAO" ref="schoolOrgDAO" />
+	</bean>
+	<bean id="studentFeeCategoryService" class="edu.sms.service.StudentFeeCategoryServiceImpl">
+		<property name="studentFeeCategoryDAO" ref="studentFeeCategoryDAO" />
+	</bean>
+   	
+	
+	
+	
+	
+	
+	<bean id="lookupDAO" class="edu.sms.dao.LookupDAOImpl" />
+	<bean id="schoolDAO" class="edu.sms.dao.SchoolDAOImpl" />
+	<bean id="classDAO" class="edu.sms.dao.ClassDAOImpl" />
+	<bean id="academicSessionDAO" class="edu.sms.dao.AcademicSessionDAOImpl" />
+	<bean id="schoolOrgDAO" class="edu.sms.dao.SchoolOrgDAOImpl" />
+	<bean id="studentFeeCategoryDAO" class="edu.sms.dao.StudentFeeCategoryDAOImpl" />
+	<bean id="organizationDAO" class="edu.sms.dao.organization.OrganizationDAOImpl" />
+	<bean id="moduleListDAO" class="edu.sms.dao.appModules.ModuleListDAOImpl" />
+	<bean id="modSubPerListDAO" class="edu.sms.dao.appModules.ModSubPerListDAOImpl" />
+	<bean id="perRoleListDAO" class="edu.sms.dao.appModules.PerRoleListDAOImpl" />
+	<bean id="roleDAO" class="edu.sms.dao.appModules.RoleListDAOImpl" />
+	<bean id="employedao" class="edu.sms.dao.appModules.employee.EmployeeDAOImpl"/>
+    <bean id="sectionDAO" class="edu.sms.dao.SectionDAOImpl"/>
+
+
+
+
+
+
+
+	<bean class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass">
+			<value>org.springframework.web.servlet.view.tiles2.TilesView</value>
+		</property>
+		
+		<property name="order" value="1" />
+	</bean>
+	
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/tiles-defs/templates.xml</value>
+			</list>
+		</property>
+	</bean>
+
+
+</beans>

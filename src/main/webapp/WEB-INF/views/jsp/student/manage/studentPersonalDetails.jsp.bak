@@ -1,0 +1,66 @@
+<%@ include file="../../common/includes.jsp"%>
+
+	<p>
+		<table width="100%" class="table table-bordered table-hover">
+			<tr>
+				<td width="20%">Student first name *</td>
+				<td width="30%"><form:input path="studentPersonalDetailsForm.studentFirstName" class="fielddecor inputFieldWidth easyui-validatebox" required="true" /></td>
+				<td width="20%">Student middle name </td>
+				<td width="30%"><form:input path="studentPersonalDetailsForm.studentMiddleName" class="fielddecor inputFieldWidth easyui-validatebox" required="true" /></td>
+			</tr>
+			<tr>
+				<td>Student last name *</td>
+				<td><form:input path="studentPersonalDetailsForm.studentLastName" class="fielddecor inputFieldWidth easyui-validatebox" required="true" /></td>
+				<td>Gender  *</td>
+				<td><form:select id="gender" path="studentPersonalDetailsForm.studentGender" items="${genders}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+			</tr>
+			<tr>
+				<td>Date of birth *</td>
+				<td>
+					<form:input path="studentPersonalDetailsForm.studentDob" readonly="true" id="birthDatePicker" class="easyui-validatebox fielddecor inputFieldWidth" required="true" />
+					<img src="../../../../../images/calendar.ico" alt="Click" title="Click" border="0" id="date_2">
+				</td>
+				<td>Birth place</td>
+				<td><form:input path="studentPersonalDetailsForm.studentBirthPlace" class="fielddecor inputFieldWidth easyui-validatebox" required="true" /></td>
+			</tr>
+			<tr>
+				<td>Nationality</td>
+				<td><form:select id="cities" path="studentPersonalDetailsForm.studentNationality" items="${nationalities}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+				<td>Mother tongue</td>
+				<td><form:input path="studentPersonalDetailsForm.studentMotherTongue" class="fielddecor inputFieldWidth" /></td>
+			</tr>
+			<tr>
+				<td>Student fee category </td>
+				<td><form:select id="studentFeeCategory" path="studentPersonalDetailsForm.studentFeeCategory" items="${feeCategories}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth"/></td>
+				<td>Student caste category *</td>
+				<td><form:select id="studentCasteCategories" path="studentPersonalDetailsForm.studentCasteCategory" items="${casteCategories}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+			</tr>
+			<tr>
+				<td>Religion</td>
+				<td><form:input path="studentPersonalDetailsForm.studentReligion" class="fielddecor inputFieldWidth" /></td>
+				<td>Religion caste</td>
+				<td><form:input path="studentPersonalDetailsForm.studentReligionCaste" class="fielddecor inputFieldWidth" /></td>
+			</tr>
+			<tr>
+				<td>Belong to locality</td>
+				<td> 
+					<form:radiobutton path="studentPersonalDetailsForm.studentLocality" value="R" label="Rural" class="fielddecor inputFieldWidth" />
+					<form:radiobutton path="studentPersonalDetailsForm.studentLocality" value="U" label="Urban" class="fielddecor inputFieldWidth" />
+				</td>
+				<td>Student caste category *</td>
+				<td><form:select id="studentBloudGroup" path="studentPersonalDetailsForm.studentBloodGroup" items="${bloodGroups}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth"/></td>
+			</tr>
+			<tr>
+				<td>Email-id</td>
+				<td><form:input path="studentPersonalDetailsForm.studentEmailId" class="fielddecor inputFieldWidth" /></td>
+				<td>Alternative email-id</td>
+				<td><form:input path="studentPersonalDetailsForm.studentAltEmailId" class="fielddecor inputFieldWidth" /></td>
+			</tr>
+			<tr>
+				<td>Student Age</td>
+				<td><form:input path="studentPersonalDetailsForm.studentAge" class="fielddecor inputFieldWidth" /></td>
+				<td>Fee Receipt No.</td>
+				<td><form:input path="studentPersonalDetailsForm.studentFeeReciept" class="fielddecor inputFieldWidth" /></td>
+			</tr>
+		</table>
+	</p>

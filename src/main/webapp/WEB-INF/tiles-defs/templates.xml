@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<!-- Common Templates -->
+	<definition name="common.template" template="/WEB-INF/views/jsp/common/commonTemplate.jsp">
+		<put-attribute name="title" value="Public School" type="string" />
+		<put-attribute name="header" value="/WEB-INF/views/jsp/common/header.jsp" />
+		<put-attribute name="menu" value="/WEB-INF/views/jsp/common/menu.jsp" />
+		<put-attribute name="content" value="/WEB-INF/views/jsp/common/blank.jsp" />
+	</definition>
+	
+     <!-- Common Templates -->
+	<definition name="ajax.template" template="/WEB-INF/views/jsp/common/blankMenu.jsp">
+			<put-attribute name="content" value="/WEB-INF/views/jsp/common/blank.jsp" />
+	</definition>
+
+     <definition name="common.template.login" template="/WEB-INF/views/jsp/common/commonTemplateLogin.jsp">
+        <put-attribute name="title" value="Property Evaluation Login" type="string" />
+        <put-attribute name="content" value="/WEB-INF/views/jsp/common/blank.jsp" />
+    </definition>
+     
+     <definition name="blank.template" template="/WEB-INF/views/jsp/common/placeHolder.jsp">
+     
+	</definition>
+     
+     
+     <definition name="login" extends="common.template.login">
+		<put-attribute name="content" value="/WEB-INF/views/identity/login.jsp" />
+	</definition>
+    
+    <definition name="registration" extends="common.template.login">
+		<put-attribute name="content" value="/WEB-INF/views/identity/registration.jsp" />
+	</definition>
+   
+   
+    <definition name="register" extends="common.template.login">
+		<put-attribute name="content" value="/WEB-INF/views/identity/register.jsp" />
+	</definition>
+
+    <definition name="rolepermission" extends="common.template.login">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/userManagement/rolepermission.jsp" />
+	</definition>
+	
+    <definition name="menuList" extends="common.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/common/blankMenu.jsp" />
+	</definition>
+	
+<!-- organization -->
+	<definition name="orgList" extends="ajax.template">
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/organizationList.jsp" />
+	</definition>
+
+	<definition name="orgEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/organizationForm.jsp" />
+	</definition>
+<!-- organization -->
+
+<!-- employee -->
+   <!-- employee Designation-->
+	 <definition name="empDesigView" extends="ajax.template">
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/employee/empDesignation/empDesigNewFrm.jsp" />
+	</definition>
+
+     <definition name="empDesigList" extends="ajax.template">
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/employee/empDesignation/empDesigListing.jsp" />
+	</definition>
+	 
+	  <definition name="configDashBoard" extends="ajax.template">
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/employee/empDesignation/empDesigConfigDashBoard.jsp" />
+	</definition>
+	
+	
+	
+  <!-- employee Designation-->
+   <!-- employee New-->
+    <definition name="empNewListing" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/employee/employeeDetails/empDetailsLst.jsp" />
+	</definition>
+	<definition name="empNewView" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/employee/employeeDetails/empDetailsNew.jsp" />
+	</definition>
+	<definition name="empExpanderView" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/employee/employeeDetails/empExpanderDtl.jsp" />
+	</definition>
+ <!-- employee New-->
+<!-- employee -->
+
+
+
+<!-- school -->   
+	<definition name="schoolList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/schoolList.jsp" />
+	</definition>
+
+	<definition name="schoolEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/schoolForm.jsp" />
+	</definition>
+<!-- school -->   
+	
+	<!-- academicsession list -->   
+	<definition name="academicSessionList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/academicSessionList.jsp" />
+	</definition>
+
+    <definition name="academicSessionFormView" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/academicSessionForm.jsp" />
+	</definition>
+   <!-- academicsession End -->    
+	<!-- SchoolOrgGlobalConfigList Start -->
+	<definition name="schoolOrgGlobalConfigList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/schoolOrgGlobalConfigList.jsp" />
+	</definition>
+	
+	  <definition name="schoolOrgGlobalConfigForm" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/schoolOrgGlobalConfigForm.jsp" />
+	</definition>
+    <!-- schoolOrgGlobalConfigList end -->
+
+
+	<definition name="weeklyHolidayList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/weeklyHolidayList.jsp" />
+	</definition>
+	
+	<definition name="weekelyHolidayEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/weekelyHolidayForm.jsp" />
+	</definition>
+
+
+
+	<definition name="bankList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/bankBranchAccountList.jsp" />
+	</definition>
+	
+	<definition name="bankEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/bankBranchAccountForm.jsp" />
+	</definition>
+
+
+	<definition name="classList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/classList.jsp" />
+	</definition>
+	
+	<definition name="classEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/classForm.jsp" />
+	</definition>
+
+
+
+	<definition name="sectionList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/sectionList.jsp" />
+	</definition>
+
+	<definition name="sectionEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/sectionForm.jsp" />
+	</definition>
+
+
+	<definition name="paperTypeList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/paperTypeList.jsp" />
+	</definition>
+
+	<definition name="paperTypeEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/paperTypeForm.jsp" />
+	</definition>
+
+
+	<definition name="studentFeeCategoryList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/studentFeeCategoryList.jsp" />
+	</definition>
+
+    
+	<definition name="gradeTypeList" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/gradeTypeList.jsp" />
+	</definition>
+
+
+   <definition name="gradeTypeEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/gradeTypeEdit.jsp" />
+	</definition>
+
+
+	<definition name="subjectList" extends="ajax.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/subjectList.jsp" />
+	</definition>
+
+	<definition name="subjectEdit" extends="blank.template">
+		<put-attribute name="placeHolder" value="/WEB-INF/views/jsp/adminViews/subjectEdit.jsp" />
+	</definition>
+
+    <definition name="loadModules" extends="ajax.template">
+		<put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/modulesList.jsp" />
+	</definition>
+
+    <definition name="modulesEdit" extends="ajax.template">
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/adminViews/modulesEdit.jsp" />
+	</definition>
+
+	<!-- Students manager changes -->
+	
+	<definition name="studentCreate" extends="ajax.template" >
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/student/manage/studentCreate.jsp" />
+	</definition>
+	<definition name="studentEdit" extends="ajax.template" >
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/student/manage/studentEdit.jsp" />
+	</definition>
+	<definition name="studentList" extends="ajax.template" >
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/student/manage/studentList.jsp" />
+	</definition>
+	<!-- Students manager changes Ends-->
+
+	<!--Admission Manager Changes Start -->
+	<definition name="prospectusConfiguration" extends="ajax.template" >
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/admission/prospectusConfiguration.jsp" />
+	</definition>
+	
+	<definition name="admissionRelatedStudentDocument" extends="ajax.template" >
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/admission/admissionRelatedStudentDocument.jsp" />
+	</definition>
+	
+	<definition name="admissionStagesConfiguration" extends="ajax.template" >
+	   <put-attribute name="content" value="/WEB-INF/views/jsp/admission/admissionStagesConfiguration.jsp" />
+	</definition>
+	<!--Admission Manager Changes End -->
+
+</tiles-definitions>

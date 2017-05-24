@@ -1,0 +1,33 @@
+   :Basic Configuration 
+       ; Organization-OR-/orgList.htm   
+       ; School-SC-/schoolList.htm    
+       ; School/Organization Session-SO-/academicSessionList.htm    
+       ; School/Organization Global Config-SG-/weeklyHolidayList.htm    
+       ; Weekly Holiday Config-WH-/weeklyHolidayList.htm    
+       ; Bank/Branch/Account-BBA-/bankList.htm    
+       ; Class-CL-/classList.htm    
+       ; Section-SE-/sectionList.htm    
+       ; Paper Type-PT-/paperTypeList.htm    
+       ; Grade Type-GT-/tempList.htm     
+       ; Student Fee Category-SFC-/studentFeeCategoryList.htm    
+       ; Grade-GR-/tempList.htm    
+       ; Subject/Skill/Formative-SSF-/subjectList.htm    
+       ; Allocate Subject-AS-/tempList.htm    
+       ; Subject Book-SB-/tempList.htm    
+       ; Dynamic Form Configurator-DFC-/tempList.htm    
+       ; Dynamic Form Link Relation-DFL-/tempList.htm
+   
+             
+   
+   
+   :Employee Manager 
+      ;Manage  Add/Edit Employee Type-ET-/loadModules.htm     
+       
+	      
+       
+	               
+	                
+	                
+	               
+	                 
+	               

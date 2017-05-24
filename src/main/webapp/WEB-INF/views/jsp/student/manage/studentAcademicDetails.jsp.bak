@@ -1,0 +1,63 @@
+<%@ include file="../../common/includes.jsp"%>
+<c:url  var="calendarImageUrl" value="/images/calendar.jpg" />
+	<p>
+	<table width="100%" class="table table-bordered table-hover">
+			<tr>
+				<td width="20%">Date of admission *</td>
+				<td width="30%">
+					<form:input path="studentAcademicDetailsForm.studentAdmissionDate" readonly="true" id="admissionDatePicker" class="easyui-validatebox fielddecor calendarInputFieldWidth" required="true" />
+					<img src="${calendarImageUrl}" alt="Click" title="Click" border="0" id="date_1">
+				</td>
+				<td width="20%">School *</td>
+				<td width="30%"><form:select id="academicSchools" path="studentAcademicDetailsForm.studentSchool" items="${schools}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+			</tr>
+			<tr>
+				<td>Admission Session *</td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.studentAdmissionSession" items="${sessions}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+				<td>First day in session</td>
+				<td><form:input path="studentAcademicDetailsForm.studentFistDaySession"  class="easyui-validatebox fielddecor inputFieldWidth" required="true" /></td>
+			</tr>
+			<tr>
+				<td>Currently in session </td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.studentCurrentlyInSession" items="${sessions}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+				<td>Class *</td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.studentClass" items="${classes}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+			</tr>
+			<tr>
+				<td>Currently in section </td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.studentSection" items="${sections}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+				<td>Class in which student got admitted in school *</td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.classStudentGotAdmitted" items="${classes}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+			</tr>
+			<tr>
+				<td>Second Language</td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.studentSecondLanguage" items="${languages}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+				<td>Third Language</td>
+				<td><form:select id="academicSchools" path="studentAcademicDetailsForm.studentThirdLanguage" items="${languages}" itemLabel="name" itemValue="id" class="fielddecor inputFieldWidth easyui-validatebox" required="required"/></td>
+			</tr>		
+			<tr>
+				<td>Student house</td>
+				<td><form:input path="studentAcademicDetailsForm.studentHouse" class="fielddecor inputFieldWidth" /></td>
+				<td>Scholar number (if any)</td>
+				<td><form:input path="studentAcademicDetailsForm.studentScholarNumber" class="fielddecor inputFieldWidth " /></td>
+			</tr>
+			<tr>
+				<td>Registration Number</td>
+				<td><form:input path="studentAcademicDetailsForm.studentRegistrationNumber" class="fielddecor inputFieldWidth" /></td>
+				<td>Admission Number</td>
+				<td><form:input path="studentAcademicDetailsForm.studentAdmissionNumber" class="fielddecor inputFieldWidth " /></td>
+			</tr>
+			<tr>
+				<td>Student's passport size image</td>
+				<td><form:input path="studentAcademicDetailsForm.studentImagePath" class="fielddecor inputFieldWidth" /></td>
+				<td>Remark</td>
+				<td><form:textarea path="studentAcademicDetailsForm.studentRemark" class="fielddecor inputFieldWidth " /></td>
+			</tr>
+			<tr>
+				<td>Device Id</td>
+				<td><form:input path="studentAcademicDetailsForm.studentDeviceId" class="fielddecor inputFieldWidth" /></td>
+				<td>RF Id</td>
+				<td><form:input path="studentAcademicDetailsForm.studentRFID" class="fielddecor inputFieldWidth " /></td>
+			</tr>
+		</table>
+</p>

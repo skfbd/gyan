@@ -1,0 +1,151 @@
+<%@ include file="../../common/includes.jsp"%>
+<script src="<c:url value="/jquery/calendar.js"/>"></script> 
+<script src="<c:url value="/jquery/calendar-en.js"/>"></script> 
+<script src="<c:url value="/jquery/calendar-setup_stripped.js"/>"></script> 
+<script>
+	$.extend($.fn.validatebox.defaults.rules, {
+		notEquals : {
+			validator : function(value, param) {
+				return value !== $(param[0]).val();
+			},
+			message : 'Please select a value.'
+		}
+	});
+	$('.saveExpandForm').click(function() {
+		var row = $('#dg').datagrid('getSelected');
+		var index = $('#dg').datagrid('getRowIndex', row);
+		saveItem(index)
+	});
+	$('.cancelExpandForm').click(function() {
+		var row = $('#dg').datagrid('getSelected');
+		var index = $('#dg').datagrid('getRowIndex', row);
+		cancelItem(index)
+	});
+
+	$('#countries').change(function() {
+		sprout('states', this.id)
+	});
+
+	$('#states').change(function() {
+		sprout('cities', this.id)
+	});
+	
+	$('#orgTypes').change(function() {
+		if(this.value=='organization'){
+			$('#orgHeadLabel, #orgHeadValue').removeClass('hide')
+		}else{
+			$('#orgHeadLabel, #orgHeadValue').addClass('hide')		
+		}
+	});
+
+	
+	 function getFormattedDate(dt) {
+			dtArr=dt.split('/');
+			return dtArr[1] + '/' + dtArr[0] + '/' + dtArr[2];
+		}
+				Calendar.setup(
+					{
+						inputField  : "admissionDatePicker",// ID of the input field
+						ifFormat    : "%d/%m/%Y",// the date format
+						align       : "BR",
+						button      : "date_1",
+						singleClick : true,
+						showTime    : true,
+						onSelect: function(cal, dt){
+								alert("0");
+								if (!cal.dateClicked){
+									return;
+								}
+							   $('#admissionDatePicker').val(dt);
+								if (cal.dateClicked) {
+								 cal.callCloseHandler();
+								}
+						}
+					}
+				);
+				Calendar.setup(
+					{
+						inputField  : "birthDatePicker",// ID of the input field
+						ifFormat    : "%d/%m/%Y",// the date format
+						align       : "BR",
+						button      : "date_2",
+						singleClick : true,
+						showTime    : true,
+						onSelect: function(cal, dt){
+								if (!cal.dateClicked){
+									return;
+								}
+							   $('#birthDatePicker').val(dt);
+								if (cal.dateClicked) {
+								 cal.callCloseHandler();
+								}
+						}
+					}
+				);
+	$(window).scroll(function(){
+
+		if(($("#studentSaveDiv").height()<256))
+		{
+			$("#studentSaveDiv").stop().animate({"marginTop": "10px"} , "slow" );
+		}
+	});
+</script>
+
+<form:form method="post" enctype="multipart/form-data" modelAttribute="studentMasterForm">
+	<div id="studentSaveDiv" class="btn-group btn-group-lg SubmitButton" style="padding-left:400px;z-index:1200;position:fixed;">
+		 <button type="button" class="btn btn-success saveStudent">Save</button>
+		 <button type="button" class="btn btn-success">Collapse All</button>
+		 <button type="button" class="btn btn-success">Expand All</button>
+	</div>
+	<div class="easyui-accordion" data-options="multiple:true" style="width:100%;">
+		<div title="Academic Details" style="overflow:auto;padding:10px;">
+			<jsp:include page="studentAcademicDetails.jsp"/>
+		</div>
+		<div title="Student Details" style="padding:10px;">
+			<jsp:include page="studentPersonalDetails.jsp"/>
+		</div>
+		<div title="Other Information" style="padding:10px;">
+			<jsp:include page="studentOtherInfoDetails.jsp"/>
+		</div>
+		<div title="Other Facility" style="padding:10px;">
+			<jsp:include page="studentOtherFacilityDetails.jsp"/>
+		</div>
+		<%--<div title="Extra Details - Please tick the appropriate boxes" style="padding:10px;">
+			 <jsp:include page="studentExtraDetails.jsp"/>
+		</div> 
+		<div title="Infectious Diseases" style="padding:10px;">
+			<jsp:include page="studentInfectiousDetails.jsp"/>
+		</div>
+		<div title="Non Infectious Diseases" style="padding:10px;">
+			<jsp:include page="studentNonInfectiousDetails.jsp"/>
+		</div>
+		<div title="Other Health Information" style="padding:10px;">
+			<jsp:include page="studentOtherHealthDetails.jsp"/>
+		</div>
+		<div title="Last Academic Information" style="padding:10px;">
+			<jsp:include page="studentLastAcademicDetails.jsp"/>
+		</div>
+		<div title="Address Information" style="padding:10px;">
+			<jsp:include page="studentAddressDetails.jsp"/>
+		</div>
+		<div title="Parental information" style="padding:10px;">
+			<jsp:include page="studentSiblingDetails.jsp"/>
+		</div>
+		<div title="Father's information" style="padding:10px;">
+			<jsp:include page="studentFathersInfoDetails.jsp"/>
+		</div>
+		<div title="Mother's Information" style="padding:10px;">
+			<jsp:include page="studentMothersInfoDetails.jsp"/>
+		</div>
+		<div title="Local guardian's information" style="padding:10px;">
+			<jsp:include page="studentLocalGuardianDetails.jsp"/>
+		</div>
+		 <div title="Common Parental Information" style="padding:10px;">
+			<jsp:include page="studentCommonParentalDetails.jsp"/>
+		</div>
+		<div title="Enclosed Document" style="padding:10px;">
+			<jsp:include page="studentEnclosedDocument.jsp"/>
+		</div>--%>
+	</div>
+	
+</form:form>
